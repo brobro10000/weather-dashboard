@@ -6,14 +6,14 @@ function header() {
 }
 
 function citySearch() {
-    $("<aside>").attr({ "id": "asideContainer", "class": "col-4" }).appendTo("#mainContainer")
+    $("<aside>").attr({ "id": "asideContainer", "class": "col-3" }).appendTo("#mainContainer")
     $("<h3>").text("Search for a City:").attr({ "class": "asideHeader" }).appendTo("#asideContainer")
     $("<input>").attr({ "id": "cityInput", "class": "col" }).appendTo("#asideContainer")
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col" }).appendTo("#asideContainer")
 }
 
 function dailyContents() {
-    $("<section>").attr({ "id": "dailyContainer", "class": "col-8" }).appendTo("#mainContainer")
+    $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
     $("<h3>").text("City + Date + Icon").attr({ "id": "cityDateIcon" }).appendTo("#dailyContainer")
     $("<h4>").text("Temperature").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
     $("<h4>").text("Wind").attr({ "id": "Wind" }).appendTo("#dailyContainer")
