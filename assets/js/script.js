@@ -1,4 +1,7 @@
-const forecastProjection = 5;
+const forecastProjection = 5; 
+
+var cityName
+
 
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
@@ -9,7 +12,7 @@ function citySearch() {
     $("<aside>").attr({ "id": "asideContainer", "class": "col-3" }).appendTo("#mainContainer")
     $("<h3>").text("Search for a City:").attr({ "class": "asideHeader" }).appendTo("#asideContainer")
     $("<input>").attr({ "id": "cityInput", "class": "col" }).appendTo("#asideContainer")
-    $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col" }).appendTo("#asideContainer")
+    $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
 
 function dailyContents() {
@@ -33,6 +36,7 @@ function forecast() {
         $("<h5>").text("Humidity").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
     }
 }
+
 function main() {
     $("<main>").attr({ "id": "mainContainer", "class": "row" }).appendTo(document.body)
     citySearch()
@@ -40,5 +44,14 @@ function main() {
     forecast()
 }
 
+function assignCityName() {
+    cityName = $("#cityInput").val()   
+    console.log(cityName)
+    return cityName
+}
 header()
 main()
+
+$("#citySubmit").on("click", function (){ 
+        assignCityName() 
+});
