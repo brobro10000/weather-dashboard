@@ -2,13 +2,10 @@ const forecastProjection = 5;
 const API_KEY = '7e237dd70a479b475daf29b07da4813a'
 var WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
 var cityName
+var cityNameArr = {}
+var i = localStorage.length;
 var currentDate= new Date().toLocaleDateString("en-US")
 currentDate = " (" +currentDate+ ") "
-var d = new Date(1622510470000);
-console.log(d)
-d = d.toLocaleDateString("en-US")
-console.log(d)
-
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
     return $("<h1>").text("Weather Dashboard").attr({ "class": "weatherHeader" }).appendTo("#headerContainer")
@@ -19,6 +16,10 @@ function citySearch() {
     $("<h3>").text("Search for a City:").attr({ "class": "asideHeader" }).appendTo("#asideContainer")
     $("<input>").attr({ "id": "cityInput", "class": "col" }).appendTo("#asideContainer")
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
+    
+}
+function addSearch(){
+    $("<button>").text(cityName).attr({ "id": "citySubmit"+i, "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
 
 function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
@@ -48,12 +49,12 @@ function forecastData(i,cityName,projectionDate,projectionIcon,projectionTemp,pr
 function main() {
     $("<main>").attr({ "id": "mainContainer", "class": "row" }).appendTo(document.body)
     citySearch()
-    //   dailyContents()
-    //   forecast()
+    loadData(cityNameArr)
 }
 
 function assignCityName() {
     cityName = $("#cityInput").val()
+    saveData(cityName,i++)
     console.log(cityName)
     return cityName
 }
@@ -75,11 +76,6 @@ function getWeather() {
         var wind = data.current.wind_speed
         var humidity = data.current.humidity
         var UV = data.current.uvi
-//         var d = new Date(1622480400000);
-// console.log(d)
-// d = d.toLocaleDateString("en-US")
-// console.log(d)
-
         var icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
         dailyContents(cityName, currentDate, icon, temp, wind, humidity, UV)
         forecast()
@@ -87,6 +83,7 @@ function getWeather() {
         {
         var projectionDate = new Date(data.daily[i].dt*1000)
         projectionDate = projectionDate.toLocaleDateString("en-US")
+        projectionDate = " (" +projectionDate+ ") "
         projectionIcon = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`
         console.log(data.daily[i].weather[0].icon)
         projectionTemp = data.daily[i].temp.day
@@ -94,13 +91,26 @@ function getWeather() {
         projectionHumidity = data.daily[i].humidity
         forecastData(i,cityName,projectionDate,projectionIcon,projectionTemp,projectionWind,projectionHumidity)
         }
+        addSearch()
     })
 }
-
+function saveData(cityName,i) {
+        localStorage.setItem("savedCities" + i, cityName)
+}
+function loadData(cityNameArr) {
+    for (var i = 0; i < localStorage.length; i++) {
+        cityNameArr[i] = localStorage.getItem("savedCities" + i)
+        $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit"+i, "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
+    }
+}
 header()
 main()
 
-$("#citySubmit").on("click", function () {
+
+
+$("#citySubmit").on("click", function (cityNameArr) {
     cityName = assignCityName()
-    getWeather()
+    console.log(cityNameArr)
+    getWeather(cityName)
 });
+
