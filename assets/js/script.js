@@ -3,6 +3,7 @@ const API_KEY = '7e237dd70a479b475daf29b07da4813a'
 var WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
 var cityName
 var cityNameArr = {}
+var buttonArr = []
 var i = localStorage.length;
 var currentDate= new Date().toLocaleDateString("en-US")
 currentDate = " (" +currentDate+ ") "
@@ -52,15 +53,19 @@ function main() {
     loadData(cityNameArr)
 }
 
-function assignCityName() {
+function assignSearchName() {
     cityName = $("#cityInput").val()
-    saveData(cityName,i++)
-    console.log(cityName)
     return cityName
+}
+function populateButtonArr() {
+    for(var i = 0;i<localStorage.length;i++){
+    buttonArr[i] = $("#citySubmit"+i)
+    }
 }
 
 function getWeather() {
     WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
+    console.log(cityName)
     fetch(WEATHER_SEARCH_API).then(function (response) {
         return response.json()
     }).then(function (data) {
@@ -92,6 +97,7 @@ function getWeather() {
         forecastData(i,cityName,projectionDate,projectionIcon,projectionTemp,projectionWind,projectionHumidity)
         }
         addSearch()
+        saveData(cityName, localStorage.length)
     })
 }
 function saveData(cityName,i) {
@@ -103,14 +109,22 @@ function loadData(cityNameArr) {
         $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit"+i, "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
     }
 }
+
 header()
 main()
+populateButtonArr()
 
-
-
-$("#citySubmit").on("click", function (cityNameArr) {
-    cityName = assignCityName()
+$("#citySubmit").on("click", function () {
+    cityName = assignSearchName()
     console.log(cityNameArr)
-    getWeather(cityName)
+    getWeather()
 });
 
+$(".clicked").on("click",function(event){
+for(var i = 0;i<localStorage.length;i++)
+$("#citySubmit"+i).on("click", function (buttonArr) {
+    event.preventDefault()
+    cityName = buttonArr.currentTarget.outerText
+    getWeather()
+});
+});
