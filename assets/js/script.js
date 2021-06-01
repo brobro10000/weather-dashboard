@@ -2,8 +2,8 @@ const forecastProjection = 5;
 const API_KEY = '7e237dd70a479b475daf29b07da4813a'
 var WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
 var cityName
-var [month, date, year] = new Date().toLocaleDateString("en-US").split("/")
-var currentDate = " (" + month + "/" + date + "/" + year + ") "
+var currentDate= new Date().toLocaleDateString("en-US")
+currentDate = " (" +currentDate+ ") "
 
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
@@ -17,14 +17,15 @@ function citySearch() {
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
 
-function dailyContents(cityName, date, temp, icon) {
+function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
     $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
     $("<h3>").text(cityName + date).attr({ "id": "cityDate" }).appendTo("#dailyContainer")
     $("<img>").attr({ "id": "icon", "src": icon }).appendTo("#cityDate")
-    $("<h4>").text("Temp:" + temp + "\u00B0F").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
-    $("<h4>").text("Wind").attr({ "id": "Wind" }).appendTo("#dailyContainer")
-    $("<h4>").text("Humidity").attr({ "id": "Humidity" }).appendTo("#dailyContainer")
-    $("<h4>").text("UV Index").attr({ "id": "UV" }).appendTo("#dailyContainer")
+    $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
+    $("<h4>").text("Wind:" + "\xa0" + wind+ "\xa0" + "MPH").attr({ "id": "Wind" }).appendTo("#dailyContainer")
+    $("<h4>").text("Humidity:"+ "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity" }).appendTo("#dailyContainer")
+    $("<h4>").text("UV Index:").attr({ "id": "UV" }).appendTo("#dailyContainer")
+    $("<h5>").text("\xa0"+UV).attr({ "id": "UVBox" }).appendTo("#UV")
 }
 
 function forecast() {
@@ -58,9 +59,21 @@ function getWeather() {
     fetch(WEATHER_SEARCH_API).then(function (response) {
         return response.json()
     }).then(function (data) {
-        var temp = data.main.temp
-        var icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
-        dailyContents(cityName, currentDate, temp, icon)
+        var lat = data.coord.lat
+        var lon = data.coord.lon
+        console.log(lat,lon)
+        WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${lat}&lon=${lon}&appid=${API_KEY}`
+        return fetch(WEATHER_SEARCH_API)}).then(function(response){
+            return response.json()
+    }).then(function(data) {
+        console.log(data)
+        var temp = data.current.temp
+        var wind = data.current.wind_speed
+        var humidity = data.current.humidity
+        var UV = data.current.uvi
+        var icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
+        dailyContents(cityName, currentDate, icon, temp, wind, humidity, UV)
+        forecast()
     })
 }
 
