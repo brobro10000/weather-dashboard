@@ -3,10 +3,7 @@ const API_KEY = '7e237dd70a479b475daf29b07da4813a'
 var WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
 var cityName
 var [month, date, year] = new Date().toLocaleDateString("en-US").split("/")
-var currentDate = month+"/"+date+"/"+year
-console.log(month+"/"+date+"/"+year)
-console.log(currentDate)
-
+var currentDate = " ("+month+"/"+date+"/"+year+") "
 
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
@@ -20,9 +17,10 @@ function citySearch() {
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
 
-function dailyContents(temp) {
+function dailyContents(cityName,date,temp,icon) {
     $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
-    $("<h3>").text("City + Date + Icon").attr({ "id": "cityDateIcon" }).appendTo("#dailyContainer")
+    $("<h3>").text(cityName + date).attr({ "id": "cityDate" }).appendTo("#dailyContainer")
+    $("<img>").attr({ "id": "icon", "src":icon }).appendTo("#cityDate")
     $("<h4>").text("Temp:"+temp+"\u00B0F").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
     $("<h4>").text("Wind").attr({ "id": "Wind" }).appendTo("#dailyContainer")
     $("<h4>").text("Humidity").attr({ "id": "Humidity" }).appendTo("#dailyContainer")
@@ -60,8 +58,9 @@ function getWeather() {
     fetch(WEATHER_SEARCH_API).then(function(response){
     return response.json()
 })  .then(function(data){
-    console.log(data.main.temp)
-    dailyContents(data.main.temp)
+    var temp = data.main.temp
+    var icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+    dailyContents(cityName,currentDate,temp,icon)
 })
 }
 header()
