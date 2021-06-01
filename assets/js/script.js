@@ -4,6 +4,10 @@ var WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=
 var cityName
 var currentDate= new Date().toLocaleDateString("en-US")
 currentDate = " (" +currentDate+ ") "
+var d = new Date(1622510470000);
+console.log(d)
+d = d.toLocaleDateString("en-US")
+console.log(d)
 
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
@@ -32,15 +36,15 @@ function forecast() {
     $("<section>").attr({ "id": "forecastContainer", "class": "", "style": "padding:0px" }).appendTo("#dailyContainer")
     $("<h3>").text("5-Day-Forecast:").attr({ "id": "forecastHeader", "class": "" }).appendTo("#forecastContainer")
     $("<div>").attr({ "id": "cardDeck", "class": "card-deck" }).appendTo("#forecastContainer")
-    for (var i = 0; i < forecastProjection; i++) {
-        $("<div>").attr({ "id": "cardContainer" + i, "class": "card" }).appendTo("#cardDeck")
-        $("<h4>").text("City + Date + Icon").attr({ "id": "cityDateIcon" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h5>").text("Temperature").attr({ "id": "Temperature" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h5>").text("Wind").attr({ "id": "Wind" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h5>").text("Humidity").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
-    }
 }
-
+function forecastData(i,cityName,projectionDate,projectionIcon,projectionTemp,projectionWind,projectionHumidity) {
+    $("<div>").attr({ "id": "cardContainer" + i, "class": "card" }).appendTo("#cardDeck")
+    $("<h4>").text(cityName + projectionDate).attr({ "id": "cityDateProjection" + i, "class": "" }).appendTo("#cardContainer" + i)
+    $("<img>").attr({ "id": "iconProjection", "src": projectionIcon }).appendTo("#cityDateProjection" + i)
+    $("<h5>").text("Temp:" + "\xa0" + projectionTemp + "\u00B0F").attr({ "id": "Temperature" + i, "class": "" }).appendTo("#cardContainer" + i)
+    $("<h5>").text("Wind:" + "\xa0" + projectionWind+ "\xa0" + "MPH").attr({ "id": "Wind" + i, "class": "" }).appendTo("#cardContainer" + i)
+    $("<h5>").text("Humidity:"+ "\xa0" + projectionHumidity + "\xa0" + "%").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
+}
 function main() {
     $("<main>").attr({ "id": "mainContainer", "class": "row" }).appendTo(document.body)
     citySearch()
@@ -71,9 +75,25 @@ function getWeather() {
         var wind = data.current.wind_speed
         var humidity = data.current.humidity
         var UV = data.current.uvi
+//         var d = new Date(1622480400000);
+// console.log(d)
+// d = d.toLocaleDateString("en-US")
+// console.log(d)
+
         var icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
         dailyContents(cityName, currentDate, icon, temp, wind, humidity, UV)
         forecast()
+        for(var i = 1; i<=forecastProjection;i++)
+        {
+        var projectionDate = new Date(data.daily[i].dt*1000)
+        projectionDate = projectionDate.toLocaleDateString("en-US")
+        projectionIcon = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`
+        console.log(data.daily[i].weather[0].icon)
+        projectionTemp = data.daily[i].temp.day
+        projectionWind = data.daily[i].wind_speed
+        projectionHumidity = data.daily[i].humidity
+        forecastData(i,cityName,projectionDate,projectionIcon,projectionTemp,projectionWind,projectionHumidity)
+        }
     })
 }
 
