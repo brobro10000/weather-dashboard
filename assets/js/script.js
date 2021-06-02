@@ -12,7 +12,7 @@ currentDate = " (" + currentDate + ") "
 
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
-    return $("<h1>").text("Weather Dashboard").attr({ "class": "weatherHeader" }).appendTo("#headerContainer")
+    return $("<h1>").text("Weather Dashboard").attr({ "class": "weatherHeader text-center" }).appendTo("#headerContainer")
 }
 
 function citySearch() {
@@ -21,8 +21,12 @@ function citySearch() {
     $("<input>").attr({ "id": "cityInput", "class": "col" }).appendTo("#asideContainer")
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
+function searchHistory() {
+    $("<section>").attr({ "id": "searchContainer", "class": "col" }).appendTo("#asideContainer")
+    $("<h3>").text("Search History:").attr({ "id":"searchHeader", "class": "searchHeader" }).appendTo("#searchContainer")
+}
 function addSearch(i) {
-    $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
+    $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
     onButtonClick()
 }
 
@@ -82,6 +86,7 @@ function updateForecast(i, cityName, projectionDate, projectionIcon, projectionT
 function main() {
     $("<main>").attr({ "id": "mainContainer", "class": "row" }).appendTo(document.body)
     citySearch()
+    searchHistory()
     loadData(cityNameArr)
 }
 
@@ -154,12 +159,15 @@ function savingValidData(cityName) {
     onButtonClick()
     saveFlag = 0
 }
-
-header()
+function startProgram() {
+   header()
 main()
 populateButtonArr()
 onButtonClick()
-loadPrevious(buttonArr)
+loadPrevious(buttonArr) 
+}
+
+startProgram()
 
 $("#citySubmit").on("click", function () {
     cityName = assignSearchName()
