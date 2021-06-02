@@ -126,9 +126,9 @@ function getWeather() {
             forecastData(i, cityName, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
         }
         flag = 1
-    }).catch(function (error){   
+    }).catch(function (error) {
         errorFlag = 1
-        alert("Please Enter a Valid City Name") 
+        alert("Please Enter a Valid City Name")
     })
 }
 function saveData(cityName, i) {
@@ -147,8 +147,7 @@ function loadPrevious(buttonArr) {
         getWeather()
     }
 }
-function savingValidData(cityName)
-{
+function savingValidData(cityName) {
     addSearch(localStorage.length)
     saveData(cityName, localStorage.length)
     populateButtonArr()
@@ -164,15 +163,17 @@ loadPrevious(buttonArr)
 
 $("#citySubmit").on("click", function () {
     cityName = assignSearchName()
-    if(cityName == "" || cityName == undefined) {errorFlag =1
-    alert("Enter a valid city")}
-    else {
-    errorFlag = 0
-    getWeather()
+    if (cityName == "" || cityName == undefined) {
+        errorFlag = 1
+        alert("Enter a valid city")
     }
-    if(errorFlag == 0){
-    savingValidData(cityName) 
-    } 
+    else {
+        errorFlag = 0
+        getWeather()
+    }
+    if (errorFlag == 0) {
+        savingValidData(cityName)
+    }
 });
 
 function onButtonClick() {
