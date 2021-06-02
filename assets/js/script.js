@@ -132,9 +132,6 @@ function getWeather() {
         }
         flag = 1
     })
-    
-    //populateButtonArr()
-    //onButtonClick()
 }
 function saveData(cityName,i) {
         console.log(buttonArr)
@@ -152,7 +149,18 @@ header()
 main()
 populateButtonArr()
 onButtonClick()
-
+loadPrevious(buttonArr)
+function loadPrevious(buttonArr)
+{
+    if(localStorage.length > 0)
+    {
+        console.log(localStorage.length)
+        console.log(buttonArr)
+        console.log(buttonArr[localStorage.length-1][0].firstChild.data)
+        cityName = buttonArr[localStorage.length-1][0].firstChild.data
+        getWeather()
+    }
+}
 $("#citySubmit").on("click", function () {
     cityName = assignSearchName()
     getWeather()
