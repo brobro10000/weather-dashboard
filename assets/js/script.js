@@ -6,6 +6,7 @@ var cityNameArr = {}
 var buttonArr = []
 var flag = 0;
 var saveFlag = 0;
+var errorFlag = 0;
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
 
@@ -97,19 +98,16 @@ function populateButtonArr() {
 
 function getWeather() {
     WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
-    console.log(cityName)
     fetch(WEATHER_SEARCH_API).then(function (response) {
         return response.json()
     }).then(function (data) {
         var lat = data.coord.lat
         var lon = data.coord.lon
-        console.log(lat, lon)
         WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${lat}&lon=${lon}&appid=${API_KEY}`
         return fetch(WEATHER_SEARCH_API)
     }).then(function (response) {
         return response.json()
     }).then(function (data) {
-        console.log(data)
         var temp = data.current.temp
         var wind = data.current.wind_speed
         var humidity = data.current.humidity
@@ -128,10 +126,12 @@ function getWeather() {
             forecastData(i, cityName, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
         }
         flag = 1
+    }).catch(function (error){   
+        errorFlag = 1
+        alert("Please Enter a Valid City Name") 
     })
 }
 function saveData(cityName, i) {
-    console.log(buttonArr)
     localStorage.setItem("savedCities" + i, cityName)
 }
 function loadData(cityNameArr) {
@@ -143,13 +143,19 @@ function loadData(cityNameArr) {
 }
 function loadPrevious(buttonArr) {
     if (localStorage.length > 0) {
-        console.log(localStorage.length)
-        console.log(buttonArr)
-        console.log(buttonArr[localStorage.length - 1][0].firstChild.data)
         cityName = buttonArr[localStorage.length - 1][0].firstChild.data
         getWeather()
     }
 }
+function savingValidData(cityName)
+{
+    addSearch(localStorage.length)
+    saveData(cityName, localStorage.length)
+    populateButtonArr()
+    onButtonClick()
+    saveFlag = 0
+}
+
 header()
 main()
 populateButtonArr()
@@ -158,12 +164,15 @@ loadPrevious(buttonArr)
 
 $("#citySubmit").on("click", function () {
     cityName = assignSearchName()
+    if(cityName == "" || cityName == undefined) {errorFlag =1
+    alert("Enter a valid city")}
+    else {
+    errorFlag = 0
     getWeather()
-    addSearch(localStorage.length)
-    saveData(cityName, localStorage.length)
-    populateButtonArr()
-    onButtonClick()
-    saveFlag = 0
+    }
+    if(errorFlag == 0){
+    savingValidData(cityName) 
+    } 
 });
 
 function onButtonClick() {
