@@ -2,10 +2,121 @@
     margin:0;
     padding: 0;
     box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+:root {
+    --primary-text:#7CB9E8;
+    --primary-background:lightcyan;
+}
+body {
+    background: lightcyan;
+    margin: 0 auto;
+    width: 95%;
+
+}
+h1,h2,h3,h4,h5,h6{
+    color: var(--primary-text);
 }
 h1 {
-    color: blue;
+    stroke:black;
+    stroke-width: 1.5px;
+    -webkit-text-stroke: 1.5px black;
+}
+h3 {
+    stroke:black;
+    stroke-width: 1px;
+    -webkit-text-stroke: 1px black;
+}
+h4 {
+    stroke:black;
+    stroke-width: .75px;
+    -webkit-text-stroke: .75px black;
+}
+h5 {
+    stroke:black;
+    stroke-width: .75px;
+    -webkit-text-stroke: .75px black;
+}
+h6 {
+    stroke:black;
+    stroke-width: .5px;
+    -webkit-text-stroke: .5px black;
+}
+img {
+    background-color: steelblue;
+    border-radius: 10px;
+}
+.weatherHeader {
+    background: rgb(0,255,253);
+    background: linear-gradient(90deg, rgba(0,255,253,1) 27%, rgba(70,130,180,1) 100%);
+    border: lightblue;
+    border-style: inset;
+    border-width: 10px;
+    border-top: aliceblue;
+}
+#cityInput {
+    background-color: floralwhite;
+    border-radius: 10px;
+}
+.clicked {
+    background-color: lightgray;
+    margin: 5px;
+    border-radius: 10px;
+}
+#cityDate{
+    background: #F0F8FF;
+    border: lightblue;
+    border-style: inset;
+    border-width: 10px;
+}
+#dailyContainer h3,h4 {
+    margin-bottom:10px;
+}
+#dailyContainer #Temperature,#Wind,#Humidity,#UV {
+    margin-left:10px
+}
+#cityDate,#forecastHeader {
+    padding-left: 10px;
 }
 #UV {
     display:inline-flex;
+}
+#UVBox{
+    border-radius: 10px;
+    margin-left: 10px;
+}
+.extreme{
+    background-color: fuchsia;
+}
+.veryHigh{
+    background-color: red;
+}
+.high{
+    background-color:orange;
+}
+.moderate{
+    background-color: gold;
+}
+.low{
+    background-color: green;
+}
+.none{
+    background-color: lightgray;
+}
+#forecastHeader {
+    background: rgb(0,255,253);
+    background: #F0F8FF;
+    border: lightblue;
+    border-style: inset;
+    border-width: 10px;
+}
+.card {
+    padding:3px;
+    background: #F0F8FF;
+    border: lightblue;
+    border-style: inset;
+    border-width: 10px;
+}
+.card h3,h5,h6 {
+    color:linear-gradient(90deg, rgba(0,255,253,1) 27%, rgba(0,26,255,1) 100%);
 }

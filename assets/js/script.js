@@ -17,13 +17,13 @@ function header() {
 
 function citySearch() {
     $("<aside>").attr({ "id": "asideContainer", "class": "col-3" }).appendTo("#mainContainer")
-    $("<h3>").text("Search for a City:").attr({ "class": "asideHeader" }).appendTo("#asideContainer")
-    $("<input>").attr({ "id": "cityInput", "class": "col" }).appendTo("#asideContainer")
+    $("<h3>").text("Search for a City").attr({ "class": "asideHeader text-center" }).appendTo("#asideContainer")
+    $("<input>").attr({ "id": "cityInput", "class": "col text-center" }).appendTo("#asideContainer")
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
 function searchHistory() {
     $("<section>").attr({ "id": "searchContainer", "class": "col" }).appendTo("#asideContainer")
-    $("<h3>").text("Search History:").attr({ "id":"searchHeader", "class": "searchHeader" }).appendTo("#searchContainer")
+    $("<h3>").text("Search History").attr({ "id":"searchHeader", "class": "searchHeader text-center" }).appendTo("#searchContainer")
 }
 function addSearch(i) {
     $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
@@ -36,13 +36,14 @@ function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
     }
     else {
         $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
-        $("<h3>").text(cityName + date).attr({ "id": "cityDate" }).appendTo("#dailyContainer")
+        $("<h3>").text(cityName + date).attr({ "id": "cityDate", "class":"text-center" }).appendTo("#dailyContainer")
         $("<img>").attr({ "id": "icon", "src": icon }).appendTo("#cityDate")
         $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
         $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind" }).appendTo("#dailyContainer")
         $("<h4>").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity" }).appendTo("#dailyContainer")
         $("<h4>").text("UV Index:").attr({ "id": "UV" }).appendTo("#dailyContainer")
-        $("<h5>").text("\xa0" + UV).attr({ "id": "UVBox" }).appendTo("#UV")
+        $("<h5>").text("\xa0" + UV + "\xa0").attr({ "id": "UVBox" }).appendTo("#UV")
+        UVColor(UV)
     }
 }
 function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
@@ -51,7 +52,23 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     $("#Temperature").text("Temp:" + "\xa0" + temp + "\u00B0F")
     $("#Wind").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH")
     $("#Humidity").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%")
-    $("#UVBox").text("\xa0" + UV)
+    $("#UVBox").text("\xa0" + UV + "\xa0")
+    UVColor(UV)
+}
+function UVColor(UV) {
+    if(UV >=11){
+        $("#UVBox").attr("class","extreme")
+    } else if(UV >=8){
+        $("#UVBox").attr("class","veryHigh")
+    }else if(UV>=6){
+        $("#UVBox").attr("class","high")
+    }else if(UV>=3){
+        $("#UVBox").attr("class","moderate")
+    }else if(UV>0){
+        $("#UVBox").attr("class","low")
+    } else if (UV == 0){
+        $("#UVBox").attr("class","none")
+    }
 }
 function forecast() {
     if (flag == 1) {
@@ -59,25 +76,25 @@ function forecast() {
     }
     else {
         $("<section>").attr({ "id": "forecastContainer", "class": "", "style": "padding:0px" }).appendTo("#dailyContainer")
-        $("<h3>").text("5-Day-Forecast:").attr({ "id": "forecastHeader", "class": "" }).appendTo("#forecastContainer")
+        $("<h3>").text("5-Day-Forecast").attr({ "id": "forecastHeader", "class": "text-center" }).appendTo("#forecastContainer")
         $("<div>").attr({ "id": "cardDeck", "class": "card-deck" }).appendTo("#forecastContainer")
     }
 }
-function forecastData(i, cityName, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
+function forecastData(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
     if (flag == 1) {
-        updateForecast(i, cityName, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
+        updateForecast(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
     }
     else {
-        $("<div>").attr({ "id": "cardContainer" + i, "class": "card" }).appendTo("#cardDeck")
-        $("<h4>").text(cityName + projectionDate).attr({ "id": "cityDateProjection" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<div>").attr({ "id": "cardContainer" + i, "class": "card ml-1 mr-1 text-center" }).appendTo("#cardDeck")
+        $("<h5>").text( projectionDate).attr({ "id": "cityDateProjection" + i, "class": "" }).appendTo("#cardContainer" + i)
         $("<img>").attr({ "id": "iconProjection" + i, "src": projectionIcon }).appendTo("#cityDateProjection" + i)
-        $("<h5>").text("Temp:" + "\xa0" + projectionTemp + "\u00B0F").attr({ "id": "Temperature" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h5>").text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH").attr({ "id": "Wind" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h5>").text("Humidity:" + "\xa0" + projectionHumidity + "\xa0" + "%").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<h6>").text("Temp:" + "\xa0" + projectionTemp + "\u00B0F").attr({ "id": "Temperature" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<h6>").text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH").attr({ "id": "Wind" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<h6>").text("Humidity:" + "\xa0" + projectionHumidity + "\xa0" + "%").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
     }
 }
-function updateForecast(i, cityName, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
-    $("#cityDateProjection" + i).text(cityName + projectionDate)
+function updateForecast(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
+    $("#cityDateProjection" + i).text( projectionDate)
     $("<img>").attr({ "id": "iconProjection" + i, "src": projectionIcon }).appendTo("#cityDateProjection" + i)
     $("#Temperature" + i).text("Temp:" + "\xa0" + projectionTemp + "\u00B0F")
     $("#Wind" + i).text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH")
@@ -128,7 +145,7 @@ function getWeather() {
             projectionTemp = data.daily[i].temp.day
             projectionWind = data.daily[i].wind_speed
             projectionHumidity = data.daily[i].humidity
-            forecastData(i, cityName, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
+            forecastData(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
         }
         flag = 1
     }).catch(function (error) {
@@ -142,7 +159,7 @@ function saveData(cityName, i) {
 function loadData(cityNameArr) {
     for (var i = 0; i < localStorage.length; i++) {
         cityNameArr[i] = localStorage.getItem("savedCities" + i)
-        $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit" + i, "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
+        $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit" + i, "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
     }
     onButtonClick()
 }
@@ -169,7 +186,7 @@ loadPrevious(buttonArr)
 
 startProgram()
 
-$("#citySubmit").on("click", function () {
+$("#citySubmit").on("click", function (event) {
     cityName = assignSearchName()
     if (cityName == "" || cityName == undefined) {
         errorFlag = 1
@@ -184,7 +201,7 @@ $("#citySubmit").on("click", function () {
     }
 });
 
-function onButtonClick() {
+function onButtonClick(event) {
     saveFlag = 1;
     for (i = 0; i < localStorage.length; i++)
         $("#citySubmit" + i).click(function (buttonArr) {
