@@ -16,108 +16,70 @@ body {
 /*Dynamic background based on weather*/
 .clear-sky-day{
     background-image: url(../images/clear-sky-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .clear-sky-night{
     background-image: url(../images/clear-sky-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .partly-cloudy-day{
     background-image: url(../images/partly-cloudy-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .partly-cloudy-night{
     background-image: url(../images/partly-cloudy-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .scattered-clouds-day{
     background-image: url(../images/scattered-clouds-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .scattered-clouds-night{
     background-image: url(../images/scattered-clouds-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .broken-clouds-day{
     background-image: url(../images/broken-clouds-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .broken-clouds-night{
     background-image: url(../images/broken-clouds-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .rainy-day{
     background-image: url(../images/rainy-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .rainy-night{
     background-image: url(../images/rainy-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .rain-day{
     background-image: url(../images/rain-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .rain-night{
     background-image: url(../images/rain-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .thunderstorm-day{
     background-image: url(../images/thunderstorm-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .thunderstorm-night{
     background-image: url(../images/thunderstorm-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .snow-day{
     background-image: url(../images/snow-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .snow-night{
     background-image: url(../images/snow-night.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .mist-day{
     background-image: url(../images/mist-day.jpg);
-    object-fit: contain;
-    background-size:cover;
-    background-repeat: no-repeat;
 }
 .mist-night{
-    background-image: url(../images/mist-night.jpg);
+    background-image: url(../images/mist-night.jpg);  
+}
+/*Giving all background images the same properties*/
+.clear-sky-day, .clear-sky-night,
+.partly-cloudy-day,.partly-cloudy-night,
+.scattered-clouds-day,.scattered-clouds-night,
+.broken-clouds-day,.broken-clouds-night,
+.rainy-day,.rainy-night,
+.rain-day,.rain-night,
+.thunderstorm-day,.thunderstorm-night,
+.snow-day,.snow-night,
+.mist-day,.mist-night,
+.weatherHeader, #forecastHeader 
+#cityInput, #cityDate {
     object-fit: contain;
     background-size:cover;
     background-repeat: no-repeat;
@@ -159,8 +121,6 @@ img {
 }
 /*Header styling*/
 .weatherHeader {
-    background: rgb(0,255,253);
-    background: linear-gradient(90deg, rgba(0,255,253,1) 27%, rgba(70,130,180,1) 100%);
     border: lightblue;
     border-style: inset;
     border-width: 10px;
@@ -169,17 +129,25 @@ img {
 }
 /*Aside styling*/
 #cityInput {
-    background-color: floralwhite;
+    color:var(--primary-text);
+    stroke:black;
+    stroke-width: .75px;
+    -webkit-text-stroke: .75px black;
+    background-image: url(../images/partly-cloudy-day.jpg);
     border-radius: 10px;
 }
 .clicked {
-    background-color: lightgray;
+    background-color: var(--primary-background);
     margin: 5px;
     border-radius: 10px;
+    color:var(--primary-text);
+    stroke:black;
+    stroke-width: .75px;
+    -webkit-text-stroke: .75px black;
 }
 /*Current weather styling*/
 #cityDate{
-    background: #F0F8FF;
+    background-image: url(../images/partly-cloudy-day.jpg);
     border: lightblue;
     border-style: inset;
     border-width: 10px;
@@ -222,8 +190,7 @@ img {
 }
 /*Start 5 day forecast styling*/
 #forecastHeader {
-    background: rgb(0,255,253);
-    background: #F0F8FF;
+    background-image: url(../images/partly-cloudy-day.jpg);
     border: lightblue;
     border-style: inset;
     border-width: 10px;
