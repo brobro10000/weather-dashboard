@@ -8,6 +8,7 @@ var buttonArr = []
 var flag = 0;
 var saveFlag = 0;
 var errorFlag = 0;
+var j = 0
 //converts date to US standard with strings to match MVP
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
@@ -87,14 +88,25 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     $("#UVBox").text("\xa0" + UV + "\xa0")
     UVColor(UV)
 }
-function updateBackground(iconCode,iconCodeArr){
+function updateBodyBackground(iconCode,iconCodeArr){
     for(var i = 0;i<iconCodeArr.length;i++)
     {
         $("#background").removeClass(iconCodeArr[i].class)
         if(iconCodeArr[i].code==iconCode)
         {
             $("#background").addClass(iconCodeArr[i].class)
-            console.log(iconCode)
+        }
+    }
+}
+function updateCardBackground(iconCode,iconCodeArr){
+    j++
+    for(var i = 0;i<iconCodeArr.length;i++)
+    {
+        $("#cardContainer"+j).removeClass(iconCodeArr[i].class)
+        if(iconCodeArr[i].code==iconCode)
+        {
+            $("#cardContainer"+j).addClass(iconCodeArr[i].class)
+
         }
     }
 }
@@ -187,9 +199,8 @@ function getWeather() {
         var UV = data.current.uvi
         var icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
         var iconCode = data.current.weather[0].icon
-        console.log(iconCode,iconCodeArr)
         dailyContents(cityName, currentDate, icon, temp, wind, humidity, UV)
-        updateBackground(iconCode,iconCodeArr)
+        updateBodyBackground(iconCode,iconCodeArr)
         forecast()
         for (var i = 1; i <= forecastProjection; i++) {
             var projectionDate = new Date(data.daily[i].dt * 1000)
@@ -201,8 +212,10 @@ function getWeather() {
             var projectionWind = data.daily[i].wind_speed
             var projectionHumidity = data.daily[i].humidity
             forecastData(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
+            updateCardBackground(iconCode,iconCodeArr)
         }
         flag = 1
+        j=0
     }).catch(function (error) {
         errorFlag = 1
         alert("Please Enter a Valid City Name")

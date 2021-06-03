@@ -188,6 +188,7 @@ img {
     margin-bottom:10px;
 }
 #dailyContainer #Temperature,#Wind,#Humidity,#UV {
+    color:#ffc107;
     margin-left:10px
 }
 #cityDate,#forecastHeader {
@@ -229,11 +230,11 @@ img {
 }
 .card {
     padding:3px;
-    background: #F0F8FF;
+    /* background: #F0F8FF; */
     border: lightblue;
     border-style: inset;
     border-width: 10px;
 }
-.card h3,h5,h6 {
-    color:linear-gradient(90deg, rgba(0,255,253,1) 27%, rgba(0,26,255,1) 100%);
+.card h5,h6 {
+    color:#ffc107
 }
