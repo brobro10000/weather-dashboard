@@ -23,7 +23,7 @@ function citySearch() {
 }
 function searchHistory() {
     $("<section>").attr({ "id": "searchContainer", "class": "col" }).appendTo("#asideContainer")
-    $("<h3>").text("Search History").attr({ "id":"searchHeader", "class": "searchHeader text-center" }).appendTo("#searchContainer")
+    $("<h3>").text("Search History").attr({ "id": "searchHeader", "class": "searchHeader text-center" }).appendTo("#searchContainer")
 }
 function addSearch(i) {
     $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
@@ -36,7 +36,7 @@ function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
     }
     else {
         $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
-        $("<h3>").text(cityName + date).attr({ "id": "cityDate", "class":"text-center" }).appendTo("#dailyContainer")
+        $("<h3>").text(cityName + date).attr({ "id": "cityDate", "class": "text-center" }).appendTo("#dailyContainer")
         $("<img>").attr({ "id": "icon", "src": icon }).appendTo("#cityDate")
         $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
         $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind" }).appendTo("#dailyContainer")
@@ -56,18 +56,18 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     UVColor(UV)
 }
 function UVColor(UV) {
-    if(UV >=11){
-        $("#UVBox").attr("class","extreme")
-    } else if(UV >=8){
-        $("#UVBox").attr("class","veryHigh")
-    }else if(UV>=6){
-        $("#UVBox").attr("class","high")
-    }else if(UV>=3){
-        $("#UVBox").attr("class","moderate")
-    }else if(UV>0){
-        $("#UVBox").attr("class","low")
-    } else if (UV == 0){
-        $("#UVBox").attr("class","none")
+    if (UV >= 11) {
+        $("#UVBox").attr("class", "extreme")
+    } else if (UV >= 8) {
+        $("#UVBox").attr("class", "veryHigh")
+    } else if (UV >= 6) {
+        $("#UVBox").attr("class", "high")
+    } else if (UV >= 3) {
+        $("#UVBox").attr("class", "moderate")
+    } else if (UV > 0) {
+        $("#UVBox").attr("class", "low")
+    } else if (UV == 0) {
+        $("#UVBox").attr("class", "none")
     }
 }
 function forecast() {
@@ -86,7 +86,7 @@ function forecastData(i, projectionDate, projectionIcon, projectionTemp, project
     }
     else {
         $("<div>").attr({ "id": "cardContainer" + i, "class": "card ml-1 mr-1 text-center" }).appendTo("#cardDeck")
-        $("<h5>").text( projectionDate).attr({ "id": "cityDateProjection" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<h5>").text(projectionDate).attr({ "id": "cityDateProjection" + i, "class": "" }).appendTo("#cardContainer" + i)
         $("<img>").attr({ "id": "iconProjection" + i, "src": projectionIcon }).appendTo("#cityDateProjection" + i)
         $("<h6>").text("Temp:" + "\xa0" + projectionTemp + "\u00B0F").attr({ "id": "Temperature" + i, "class": "" }).appendTo("#cardContainer" + i)
         $("<h6>").text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH").attr({ "id": "Wind" + i, "class": "" }).appendTo("#cardContainer" + i)
@@ -94,7 +94,7 @@ function forecastData(i, projectionDate, projectionIcon, projectionTemp, project
     }
 }
 function updateForecast(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
-    $("#cityDateProjection" + i).text( projectionDate)
+    $("#cityDateProjection" + i).text(projectionDate)
     $("<img>").attr({ "id": "iconProjection" + i, "src": projectionIcon }).appendTo("#cityDateProjection" + i)
     $("#Temperature" + i).text("Temp:" + "\xa0" + projectionTemp + "\u00B0F")
     $("#Wind" + i).text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH")
@@ -177,11 +177,11 @@ function savingValidData(cityName) {
     saveFlag = 0
 }
 function startProgram() {
-   header()
-main()
-populateButtonArr()
-onButtonClick()
-loadPrevious(buttonArr) 
+    header()
+    main()
+    populateButtonArr()
+    onButtonClick()
+    loadPrevious(buttonArr)
 }
 
 startProgram()
