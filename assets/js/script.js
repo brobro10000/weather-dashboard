@@ -1,3 +1,4 @@
+//variables for program
 const forecastProjection = 5;
 const API_KEY = '7e237dd70a479b475daf29b07da4813a'
 var WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
@@ -7,29 +8,40 @@ var buttonArr = []
 var flag = 0;
 var saveFlag = 0;
 var errorFlag = 0;
+//converts date to US standard with strings to match MVP
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
 
+//START HEADER
+//creates the HEADER and text within it
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
     return $("<h1>").text("Weather Dashboard").attr({ "class": "weatherHeader text-center" }).appendTo("#headerContainer")
 }
+//END HEADER
 
+//START ASIDE
+//creates the ASIDE, search bar and submit button
 function citySearch() {
     $("<aside>").attr({ "id": "asideContainer", "class": "col-3" }).appendTo("#mainContainer")
     $("<h3>").text("Search for a City").attr({ "class": "asideHeader text-center" }).appendTo("#asideContainer")
     $("<input>").attr({ "id": "cityInput", "class": "col text-center" }).appendTo("#asideContainer")
     $("<button>").text("Search").attr({ "id": "citySubmit", "type": "button", "class": "col clicked" }).appendTo("#asideContainer")
 }
+//creates the section the search header sits in
 function searchHistory() {
     $("<section>").attr({ "id": "searchContainer", "class": "col" }).appendTo("#asideContainer")
     $("<h3>").text("Search History").attr({ "id": "searchHeader", "class": "searchHeader text-center" }).appendTo("#searchContainer")
 }
+//creates the search history dynamically
 function addSearch(i) {
     $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
     onButtonClick()
 }
+//END ASIDE
 
+//START CENTER SECTION
+//Creates first instance of current weather, if flag 1 updates the data 
 function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
     if (flag == 1) {
         updateDaily(cityName, date, icon, temp, wind, humidity, UV)
@@ -42,10 +54,11 @@ function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
         $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind" }).appendTo("#dailyContainer")
         $("<h4>").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity" }).appendTo("#dailyContainer")
         $("<h4>").text("UV Index:").attr({ "id": "UV" }).appendTo("#dailyContainer")
-        $("<h5>").text("\xa0" + UV + "\xa0").attr({ "id": "UVBox" }).appendTo("#UV")
+        $("<h5>").text("\xa0" + UV + "\xa0").attr({ "id": "UVBox", "class": "" }).appendTo("#UV")
         UVColor(UV)
     }
 }
+//Updates current weather values with searched or history city
 function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     $("#cityDate").text(cityName + date)
     $("<img>").attr({ "id": "icon", "src": icon }).appendTo("#cityDate")
@@ -55,21 +68,24 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     $("#UVBox").text("\xa0" + UV + "\xa0")
     UVColor(UV)
 }
+//Parameters for UV to add the class to change background color
+//parameters determined by EPA standards for limits
 function UVColor(UV) {
     if (UV >= 11) {
-        $("#UVBox").attr("class", "extreme")
+        $("#UVBox").removeClass("none low moderate high veryHigh").addClass("extreme")
     } else if (UV >= 8) {
-        $("#UVBox").attr("class", "veryHigh")
+        $("#UVBox").removeClass("none low moderate high extreme").addClass("veryHigh")
     } else if (UV >= 6) {
-        $("#UVBox").attr("class", "high")
+        $("#UVBox").removeClass("none low moderate veryHigh extreme").addClass("high")
     } else if (UV >= 3) {
-        $("#UVBox").attr("class", "moderate")
+        $("#UVBox").removeClass("none low high veryHigh extreme").addClass("moderate")
     } else if (UV > 0) {
-        $("#UVBox").attr("class", "low")
+        $("#UVBox").removeClass("none moderate high veryHigh extreme").addClass("low")
     } else if (UV == 0) {
-        $("#UVBox").attr("class", "none")
+        $("#UVBox").removeClass("low moderate high veryHigh extreme").addClass("none")
     }
 }
+//Creates the card section for 5 day forcast
 function forecast() {
     if (flag == 1) {
         return
@@ -80,6 +96,7 @@ function forecast() {
         $("<div>").attr({ "id": "cardDeck", "class": "card-deck" }).appendTo("#forecastContainer")
     }
 }
+//Creates first instance of 5 day weather, if flag 1 updates the data 
 function forecastData(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
     if (flag == 1) {
         updateForecast(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
@@ -93,6 +110,7 @@ function forecastData(i, projectionDate, projectionIcon, projectionTemp, project
         $("<h6>").text("Humidity:" + "\xa0" + projectionHumidity + "\xa0" + "%").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
     }
 }
+//Updates 5 day weather values with searched or history city
 function updateForecast(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity) {
     $("#cityDateProjection" + i).text(projectionDate)
     $("<img>").attr({ "id": "iconProjection" + i, "src": projectionIcon }).appendTo("#cityDateProjection" + i)
@@ -100,24 +118,27 @@ function updateForecast(i, projectionDate, projectionIcon, projectionTemp, proje
     $("#Wind" + i).text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH")
     $("#Humidity" + i).text("Humidity:" + "\xa0" + projectionHumidity + "\xa0" + "%")
 }
+//Creates main section 
 function main() {
     $("<main>").attr({ "id": "mainContainer", "class": "row" }).appendTo(document.body)
     citySearch()
     searchHistory()
     loadData(cityNameArr)
 }
-
+//Assigns city name to what the user input
 function assignSearchName() {
     cityName = $("#cityInput").val()
     return cityName
 }
+//populates teh arras from local storage and what the user submitted
 function populateButtonArr() {
     for (var i = 0; i < localStorage.length; i++) {
         cityNameArr[i] = localStorage.getItem("savedCities" + i)
         buttonArr[i] = $("#citySubmit" + i)
     }
 }
-
+//main function that pulls data from API and calls the function within, does catch for errors
+//retrieves latitude and logitude and passes it into the next API to pull the rest of the data
 function getWeather() {
     WEATHER_SEARCH_API = `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${cityName}&appid=${API_KEY}`
     fetch(WEATHER_SEARCH_API).then(function (response) {
@@ -153,9 +174,11 @@ function getWeather() {
         alert("Please Enter a Valid City Name")
     })
 }
+//saves data to local storage
 function saveData(cityName, i) {
     localStorage.setItem("savedCities" + i, cityName)
 }
+//loads data to users page dynamically
 function loadData(cityNameArr) {
     for (var i = 0; i < localStorage.length; i++) {
         cityNameArr[i] = localStorage.getItem("savedCities" + i)
@@ -163,12 +186,14 @@ function loadData(cityNameArr) {
     }
     onButtonClick()
 }
+//on page reload, load last saved item in search history
 function loadPrevious(buttonArr) {
     if (localStorage.length > 0) {
         cityName = buttonArr[localStorage.length - 1][0].firstChild.data
         getWeather()
     }
 }
+//saves data that is not empty form the input
 function savingValidData(cityName) {
     addSearch(localStorage.length)
     saveData(cityName, localStorage.length)
@@ -176,6 +201,7 @@ function savingValidData(cityName) {
     onButtonClick()
     saveFlag = 0
 }
+//runs the program
 function startProgram() {
     header()
     main()
@@ -183,10 +209,10 @@ function startProgram() {
     onButtonClick()
     loadPrevious(buttonArr)
 }
-
+//program runs
 startProgram()
-
-$("#citySubmit").on("click", function (event) {
+//reads input and loads data after search button click
+$("#citySubmit").on("click", function () {
     cityName = assignSearchName()
     if (cityName == "" || cityName == undefined) {
         errorFlag = 1
@@ -200,8 +226,8 @@ $("#citySubmit").on("click", function (event) {
         savingValidData(cityName)
     }
 });
-
-function onButtonClick(event) {
+//Reads button clicks from history and loads data
+function onButtonClick() {
     saveFlag = 1;
     for (i = 0; i < localStorage.length; i++)
         $("#citySubmit" + i).click(function (buttonArr) {

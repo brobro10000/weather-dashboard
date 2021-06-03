@@ -12,11 +12,12 @@ body {
     background: lightcyan;
     margin: 0 auto;
     width: 95%;
-
 }
+/*Sets primary colors of all text*/
 h1,h2,h3,h4,h5,h6{
     color: var(--primary-text);
 }
+/*individual stroke widths based on size*/
 h1 {
     stroke:black;
     stroke-width: 1.5px;
@@ -42,10 +43,12 @@ h6 {
     stroke-width: .5px;
     -webkit-text-stroke: .5px black;
 }
+/*background for icon to make more visible*/
 img {
     background-color: steelblue;
     border-radius: 10px;
 }
+/*Header styling*/
 .weatherHeader {
     background: rgb(0,255,253);
     background: linear-gradient(90deg, rgba(0,255,253,1) 27%, rgba(70,130,180,1) 100%);
@@ -54,6 +57,7 @@ img {
     border-width: 10px;
     border-top: aliceblue;
 }
+/*Aside styling*/
 #cityInput {
     background-color: floralwhite;
     border-radius: 10px;
@@ -63,6 +67,7 @@ img {
     margin: 5px;
     border-radius: 10px;
 }
+/*Current weather styling*/
 #cityDate{
     background: #F0F8FF;
     border: lightblue;
@@ -85,6 +90,7 @@ img {
     border-radius: 10px;
     margin-left: 10px;
 }
+/*UV colors based on severity. Colors, and value limits determined by EPA standards*/
 .extreme{
     background-color: fuchsia;
 }
@@ -103,6 +109,7 @@ img {
 .none{
     background-color: lightgray;
 }
+/*Start 5 day forecast styling*/
 #forecastHeader {
     background: rgb(0,255,253);
     background: #F0F8FF;
