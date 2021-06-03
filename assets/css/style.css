@@ -111,7 +111,7 @@ body {
     background-repeat: no-repeat;
 }
 .mist-day{
-    background-image: url(../images/clear-sky-day.jpg);
+    background-image: url(../images/mist-day.jpg);
     object-fit: contain;
     background-size:cover;
     background-repeat: no-repeat;
