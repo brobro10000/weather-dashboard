@@ -11,7 +11,26 @@ var errorFlag = 0;
 //converts date to US standard with strings to match MVP
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
-
+iconCodeArr = [
+    {code:"01d",class:"clear-sky-day"},
+    {code:"01n",class:"clear-sky-night"},
+    {code:"02d",class:"partly-cloudy-day"},
+    {code:"02n",class:"partly-cloudy-night"},
+    {code:"03d",class:"scattered-clouds-day"},
+    {code:"03n",class:"scattered-clouds-night"},
+    {code:"04d",class:"broken-clouds-day"},
+    {code:"04n",class:"broken-clouds-night"},
+    {code:"09d",class:"rainy-day"},
+    {code:"09n",class:"rainy-night"},
+    {code:"10d",class:"rain-day"},
+    {code:"10n",class:"rain-night"},
+    {code:"11d",class:"thunderstorm-day"},
+    {code:"11n",class:"thunderstorm-night"},
+    {code:"13d",class:"snow-day"},
+    {code:"13n",class:"snow-night"},
+    {code:"50d",class:"mist-day"},
+    {code:"50n",class:"mist-night"}
+]
 //START HEADER
 //creates the HEADER and text within it
 function header() {
@@ -42,7 +61,7 @@ function addSearch(i) {
 
 //START CENTER SECTION
 //Creates first instance of current weather, if flag 1 updates the data 
-function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
+function dailyContents(cityName, date, icon, temp, wind, humidity, UV, iconCode) {
     if (flag == 1) {
         updateDaily(cityName, date, icon, temp, wind, humidity, UV)
     }
@@ -67,6 +86,89 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     $("#Humidity").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%")
     $("#UVBox").text("\xa0" + UV + "\xa0")
     UVColor(UV)
+}
+function updateBackground(iconCode,iconCodeArr){
+    for(var i = 0;i<iconCodeArr.length;i++)
+    {
+        $("#background").removeClass(iconCodeArr[i].class)
+        if(iconCodeArr[i].code==iconCode)
+        {
+            $("#background").addClass(iconCodeArr[i].class)
+            console.log(iconCode)
+        }
+    }
+    // if(iconCode == "01d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "01n")
+    // {
+    //     $("#background").addClass("clear-sky-night")
+    // }
+    // if(iconCode == "02d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "02n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "03d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "03n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "04d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "04n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "09d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "09n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "10d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "10n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "11d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "11n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "13d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "13n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "50d")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
+    // if(iconCode == "50n")
+    // {
+    //     $("#background").addClass("clear-sky-day")
+    // }
 }
 //Parameters for UV to add the class to change background color
 //parameters determined by EPA standards for limits
@@ -156,16 +258,20 @@ function getWeather() {
         var humidity = data.current.humidity
         var UV = data.current.uvi
         var icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
+        var iconCode = data.current.weather[0].icon
+        console.log(iconCode,iconCodeArr)
         dailyContents(cityName, currentDate, icon, temp, wind, humidity, UV)
+        updateBackground(iconCode,iconCodeArr)
         forecast()
         for (var i = 1; i <= forecastProjection; i++) {
             var projectionDate = new Date(data.daily[i].dt * 1000)
-            projectionDate = projectionDate.toLocaleDateString("en-US")
-            projectionDate = " (" + projectionDate + ") "
-            projectionIcon = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`
-            projectionTemp = data.daily[i].temp.day
-            projectionWind = data.daily[i].wind_speed
-            projectionHumidity = data.daily[i].humidity
+            var projectionDate = projectionDate.toLocaleDateString("en-US")
+            var projectionDate = " (" + projectionDate + ") "
+            var projectionIcon = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`
+            var iconCode = data.daily[i].weather[0].icon
+            var projectionTemp = data.daily[i].temp.day
+            var projectionWind = data.daily[i].wind_speed
+            var projectionHumidity = data.daily[i].humidity
             forecastData(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
         }
         flag = 1
@@ -228,6 +334,10 @@ $("#citySubmit").on("click", function () {
 });
 //Reads button clicks from history and loads data
 function onButtonClick() {
+    for(var i = 0;i<iconCodeArr.length;i++)
+    {
+            $("#background").removeClass(iconCodeArr[i].class)
+    }
     saveFlag = 1;
     for (i = 0; i < localStorage.length; i++)
         $("#citySubmit" + i).click(function (buttonArr) {

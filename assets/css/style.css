@@ -13,9 +13,118 @@ body {
     margin: 0 auto;
     width: 95%;
 }
+/*Dynamic background based on weather*/
+.clear-sky-day{
+    background-image: url(../images/clear-sky-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.clear-sky-night{
+    background-image: url(../images/clear-sky-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.partly-cloudy-day{
+    background-image: url(../images/partly-cloudy-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.partly-cloudy-night{
+    background-image: url(../images/partly-cloudy-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.scattered-clouds-day{
+    background-image: url(../images/scattered-clouds-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.scattered-clouds-night{
+    background-image: url(../images/scattered-clouds-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.broken-clouds-day{
+    background-image: url(../images/broken-clouds-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.broken-clouds-night{
+    background-image: url(../images/broken-clouds-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.rainy-day{
+    background-image: url(../images/rainy-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.rainy-night{
+    background-image: url(../images/rainy-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.rain-day{
+    background-image: url(../images/rain-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.rain-night{
+    background-image: url(../images/rain-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.thunderstorm-day{
+    background-image: url(../images/thunderstorm-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.thunderstorm-night{
+    background-image: url(../images/thunderstorm-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.snow-day{
+    background-image: url(../images/snow-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.snow-night{
+    background-image: url(../images/snow-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.mist-day{
+    background-image: url(../images/clear-sky-day.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.mist-night{
+    background-image: url(../images/mist-night.jpg);
+    object-fit: contain;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
 /*Sets primary colors of all text*/
 h1,h2,h3,h4,h5,h6{
-    color: var(--primary-text);
+    color: var(--primary-text);   
 }
 /*individual stroke widths based on size*/
 h1 {
@@ -56,6 +165,7 @@ img {
     border-style: inset;
     border-width: 10px;
     border-top: aliceblue;
+    background-image: url(../images/partly-cloudy-day.jpg);
 }
 /*Aside styling*/
 #cityInput {
