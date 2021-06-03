@@ -14,24 +14,24 @@ var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
 //Array of objects to reference weather icon to assign css based on class styles
 iconCodeArr = [
-    {code:"01d",class:"clear-sky-day"},
-    {code:"01n",class:"clear-sky-night"},
-    {code:"02d",class:"partly-cloudy-day"},
-    {code:"02n",class:"partly-cloudy-night"},
-    {code:"03d",class:"scattered-clouds-day"},
-    {code:"03n",class:"scattered-clouds-night"},
-    {code:"04d",class:"broken-clouds-day"},
-    {code:"04n",class:"broken-clouds-night"},
-    {code:"09d",class:"rainy-day"},
-    {code:"09n",class:"rainy-night"},
-    {code:"10d",class:"rain-day"},
-    {code:"10n",class:"rain-night"},
-    {code:"11d",class:"thunderstorm-day"},
-    {code:"11n",class:"thunderstorm-night"},
-    {code:"13d",class:"snow-day"},
-    {code:"13n",class:"snow-night"},
-    {code:"50d",class:"mist-day"},
-    {code:"50n",class:"mist-night"}
+    { code: "01d", class: "clear-sky-day" },
+    { code: "01n", class: "clear-sky-night" },
+    { code: "02d", class: "partly-cloudy-day" },
+    { code: "02n", class: "partly-cloudy-night" },
+    { code: "03d", class: "scattered-clouds-day" },
+    { code: "03n", class: "scattered-clouds-night" },
+    { code: "04d", class: "broken-clouds-day" },
+    { code: "04n", class: "broken-clouds-night" },
+    { code: "09d", class: "rainy-day" },
+    { code: "09n", class: "rainy-night" },
+    { code: "10d", class: "rain-day" },
+    { code: "10n", class: "rain-night" },
+    { code: "11d", class: "thunderstorm-day" },
+    { code: "11n", class: "thunderstorm-night" },
+    { code: "13d", class: "snow-day" },
+    { code: "13n", class: "snow-night" },
+    { code: "50d", class: "mist-day" },
+    { code: "50n", class: "mist-night" }
 ]
 //START HEADER
 //creates the HEADER and text within it
@@ -90,25 +90,21 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     UVColor(UV)
 }
 //Dynamically change background based on current weather
-function updateBodyBackground(iconCode,iconCodeArr){
-    for(var i = 0;i<iconCodeArr.length;i++)
-    {
+function updateBodyBackground(iconCode, iconCodeArr) {
+    for (var i = 0; i < iconCodeArr.length; i++) {
         $("#background").removeClass(iconCodeArr[i].class)
-        if(iconCodeArr[i].code==iconCode)
-        {
+        if (iconCodeArr[i].code == iconCode) {
             $("#background").addClass(iconCodeArr[i].class)
         }
     }
 }
 //Dynamically change card background based on current weather
-function updateCardBackground(iconCode,iconCodeArr){
+function updateCardBackground(iconCode, iconCodeArr) {
     j++
-    for(var i = 0;i<iconCodeArr.length;i++)
-    {
-        $("#cardContainer"+j).removeClass(iconCodeArr[i].class)
-        if(iconCodeArr[i].code==iconCode)
-        {
-            $("#cardContainer"+j).addClass(iconCodeArr[i].class)
+    for (var i = 0; i < iconCodeArr.length; i++) {
+        $("#cardContainer" + j).removeClass(iconCodeArr[i].class)
+        if (iconCodeArr[i].code == iconCode) {
+            $("#cardContainer" + j).addClass(iconCodeArr[i].class)
 
         }
     }
@@ -203,7 +199,7 @@ function getWeather() {
         var icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
         var iconCode = data.current.weather[0].icon
         dailyContents(cityName, currentDate, icon, temp, wind, humidity, UV)
-        updateBodyBackground(iconCode,iconCodeArr)
+        updateBodyBackground(iconCode, iconCodeArr)
         forecast()
         for (var i = 1; i <= forecastProjection; i++) {
             var projectionDate = new Date(data.daily[i].dt * 1000)
@@ -215,10 +211,10 @@ function getWeather() {
             var projectionWind = data.daily[i].wind_speed
             var projectionHumidity = data.daily[i].humidity
             forecastData(i, projectionDate, projectionIcon, projectionTemp, projectionWind, projectionHumidity)
-            updateCardBackground(iconCode,iconCodeArr)
+            updateCardBackground(iconCode, iconCodeArr)
         }
         flag = 1
-        j=0
+        j = 0
     }).catch(function (error) {
         errorFlag = 1
         alert("Please Enter a Valid City Name")
@@ -278,9 +274,8 @@ $("#citySubmit").on("click", function () {
 });
 //Reads button clicks from history and loads data
 function onButtonClick() {
-    for(var i = 0;i<iconCodeArr.length;i++)
-    {
-            $("#background").removeClass(iconCodeArr[i].class)
+    for (var i = 0; i < iconCodeArr.length; i++) {
+        $("#background").removeClass(iconCodeArr[i].class)
     }
     saveFlag = 1;
     for (i = 0; i < localStorage.length; i++)
