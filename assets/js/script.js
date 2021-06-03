@@ -12,6 +12,7 @@ var j = 0
 //converts date to US standard with strings to match MVP
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
+//Array of objects to reference weather icon to assign css based on class styles
 iconCodeArr = [
     {code:"01d",class:"clear-sky-day"},
     {code:"01n",class:"clear-sky-night"},
@@ -88,6 +89,7 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
     $("#UVBox").text("\xa0" + UV + "\xa0")
     UVColor(UV)
 }
+//Dynamically change background based on current weather
 function updateBodyBackground(iconCode,iconCodeArr){
     for(var i = 0;i<iconCodeArr.length;i++)
     {
@@ -98,6 +100,7 @@ function updateBodyBackground(iconCode,iconCodeArr){
         }
     }
 }
+//Dynamically change card background based on current weather
 function updateCardBackground(iconCode,iconCodeArr){
     j++
     for(var i = 0;i<iconCodeArr.length;i++)
