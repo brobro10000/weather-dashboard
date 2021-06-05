@@ -120,9 +120,9 @@ function UVColor(UV) {
         $("#UVBox").removeClass("none low moderate veryHigh extreme").addClass("high")
     } else if (UV >= 3) {
         $("#UVBox").removeClass("none low high veryHigh extreme").addClass("moderate")
-    } else if (UV > 0) {
+    } else if (UV >= 1) {
         $("#UVBox").removeClass("none moderate high veryHigh extreme").addClass("low")
-    } else if (UV == 0) {
+    } else if (UV >= 0) {
         $("#UVBox").removeClass("low moderate high veryHigh extreme").addClass("none")
     }
 }
