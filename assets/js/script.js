@@ -71,10 +71,10 @@ function dailyContents(cityName, date, icon, temp, wind, humidity, UV, iconCode)
         $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
         $("<h3>").text(cityName + date).attr({ "id": "cityDate", "class": "text-center" }).appendTo("#dailyContainer")
         $("<img>").attr({ "id": "icon", "src": icon }).appendTo("#cityDate")
-        $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature", "class":"dailyText" }).appendTo("#dailyContainer")
-        $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind", "class":"dailyText" }).appendTo("#dailyContainer")
-        $("<h4>").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity", "class":"dailyText" }).appendTo("#dailyContainer")
-        $("<h4>").text("UV Index:").attr({ "id": "UV", "class":"dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature", "class": "dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind", "class": "dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity", "class": "dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("UV Index:").attr({ "id": "UV", "class": "dailyText" }).appendTo("#dailyContainer")
         $("<h5>").text("\xa0" + UV + "\xa0").attr({ "id": "UVBox", "class": "dailyText" }).appendTo("#UV")
         UVColor(UV)
     }
@@ -275,9 +275,6 @@ $("#citySubmit").on("click", function () {
 });
 //Reads button clicks from history and loads data
 function onButtonClick() {
-    for (var i = 0; i < iconCodeArr.length; i++) {
-        $("#background").removeClass(iconCodeArr[i].class)
-    }
     saveFlag = 1;
     for (i = 0; i < localStorage.length; i++)
         $("#citySubmit" + i).click(function (buttonArr) {

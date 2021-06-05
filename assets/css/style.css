@@ -215,7 +215,7 @@ img {
         width: 45px;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 575px) {
     .clicked {
         font-size: smaller;
         text-align: center;
