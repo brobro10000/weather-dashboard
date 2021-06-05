@@ -6,10 +6,12 @@
 }
 :root {
     --primary-text:#7CB9E8;
+    --secondary-text:#ffc107;
+    --primary-border:lightblue;
     --primary-background:lightcyan;
 }
 body {
-    background: lightcyan;
+    background:var(--primary-background);
     margin: 0 auto;
     width: 95%;
 }
@@ -99,12 +101,7 @@ h3 {
     stroke-width: 1px;
     -webkit-text-stroke: 1px black;
 }
-h4 {
-    stroke:black;
-    stroke-width: .75px;
-    -webkit-text-stroke: .75px black;
-}
-h5 {
+h4,h5 {
     stroke:black;
     stroke-width: .75px;
     -webkit-text-stroke: .75px black;
@@ -121,10 +118,10 @@ img {
 }
 /*Header styling*/
 .weatherHeader {
-    border: lightblue;
+    border: var(--primary-border);
     border-style: inset;
     border-width: 10px;
-    border-top: aliceblue;
+    border-top: none;
     background-image: url(../images/partly-cloudy-day.jpg);
 }
 /*Aside styling*/
@@ -148,16 +145,14 @@ img {
 /*Current weather styling*/
 #cityDate{
     background-image: url(../images/partly-cloudy-day.jpg);
-    border: lightblue;
+    border: var(--primary-border);
     border-style: inset;
     border-width: 10px;
 }
-#dailyContainer h3,h4 {
+.dailyText {
+    color:var(--secondary-text);
+    margin-left:10px;
     margin-bottom:10px;
-}
-#dailyContainer #Temperature,#Wind,#Humidity,#UV {
-    color:#ffc107;
-    margin-left:10px
 }
 #cityDate,#forecastHeader {
     padding-left: 10px;
@@ -191,16 +186,68 @@ img {
 /*Start 5 day forecast styling*/
 #forecastHeader {
     background-image: url(../images/partly-cloudy-day.jpg);
-    border: lightblue;
-    border-style: inset;
-    border-width: 10px;
 }
 .card {
     padding:3px;
-    border: lightblue;
+}
+.card,#forecastHeader {
+    border: var(--primary-border);
     border-style: inset;
     border-width: 10px;
 }
 .card h3,h5,h6 {
     color:#ffc107
 }
+@media screen and (max-width: 1240px){
+    .cardText {
+        font-size: smaller;
+    }
+}
+@media screen and (max-width: 1100px){
+    h1,h3,h4 {
+        font-size:3vw;
+    }
+    .cardText {
+        word-wrap: break-word;
+    }
+    img {
+        height: auto;
+        width: 45px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .clicked {
+        font-size: smaller;
+        text-align: center;
+        padding: 0px
+    }
+    .cardText {
+        font-size: larger;
+    }
+    img {
+        height: auto;
+        width: 40px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    h1,h3,h4 {
+        font-size:medium;
+    }
+    img {
+        height: auto;
+        width: 30px;
+    }
+    #asideContainer, #dailyContainer, #searchContainer {
+        padding-left: 10px;
+        padding-right:0px
+    }
+    .clicked {
+        font-size: smaller;
+        text-align: center;
+        padding: 0px;
+        word-wrap: break-word;
+    }
+    .cardText {
+        font-size: medium;
+    }
+  }

@@ -71,11 +71,11 @@ function dailyContents(cityName, date, icon, temp, wind, humidity, UV, iconCode)
         $("<section>").attr({ "id": "dailyContainer", "class": "col-9" }).appendTo("#mainContainer")
         $("<h3>").text(cityName + date).attr({ "id": "cityDate", "class": "text-center" }).appendTo("#dailyContainer")
         $("<img>").attr({ "id": "icon", "src": icon }).appendTo("#cityDate")
-        $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature" }).appendTo("#dailyContainer")
-        $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind" }).appendTo("#dailyContainer")
-        $("<h4>").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity" }).appendTo("#dailyContainer")
-        $("<h4>").text("UV Index:").attr({ "id": "UV" }).appendTo("#dailyContainer")
-        $("<h5>").text("\xa0" + UV + "\xa0").attr({ "id": "UVBox", "class": "" }).appendTo("#UV")
+        $("<h4>").text("Temp:" + "\xa0" + temp + "\u00B0F").attr({ "id": "Temperature", "class":"dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("Wind:" + "\xa0" + wind + "\xa0" + "MPH").attr({ "id": "Wind", "class":"dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("Humidity:" + "\xa0" + humidity + "\xa0" + "%").attr({ "id": "Humidity", "class":"dailyText" }).appendTo("#dailyContainer")
+        $("<h4>").text("UV Index:").attr({ "id": "UV", "class":"dailyText" }).appendTo("#dailyContainer")
+        $("<h5>").text("\xa0" + UV + "\xa0").attr({ "id": "UVBox", "class": "dailyText" }).appendTo("#UV")
         UVColor(UV)
     }
 }
@@ -144,11 +144,11 @@ function forecastData(i, projectionDate, projectionIcon, projectionTemp, project
     }
     else {
         $("<div>").attr({ "id": "cardContainer" + i, "class": "card ml-1 mr-1 text-center" }).appendTo("#cardDeck")
-        $("<h5>").text(projectionDate).attr({ "id": "cityDateProjection" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<h5>").text(projectionDate).attr({ "id": "cityDateProjection" + i, "class": "cardText" }).appendTo("#cardContainer" + i)
         $("<img>").attr({ "id": "iconProjection" + i, "src": projectionIcon }).appendTo("#cityDateProjection" + i)
-        $("<h6>").text("Temp:" + "\xa0" + projectionTemp + "\u00B0F").attr({ "id": "Temperature" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h6>").text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH").attr({ "id": "Wind" + i, "class": "" }).appendTo("#cardContainer" + i)
-        $("<h6>").text("Humidity:" + "\xa0" + projectionHumidity + "\xa0" + "%").attr({ "id": "Humidity" + i, "class": "" }).appendTo("#cardContainer" + i)
+        $("<h6>").text("Temp:" + "\xa0" + projectionTemp + "\u00B0F").attr({ "id": "Temperature" + i, "class": "cardText" }).appendTo("#cardContainer" + i)
+        $("<h6>").text("Wind:" + "\xa0" + projectionWind + "\xa0" + "MPH").attr({ "id": "Wind" + i, "class": "cardText" }).appendTo("#cardContainer" + i)
+        $("<h6>").text("Humidity:" + "\xa0" + projectionHumidity + "\xa0" + "%").attr({ "id": "Humidity" + i, "class": "cardText" }).appendTo("#cardContainer" + i)
     }
 }
 //Updates 5 day weather values with searched or history city
@@ -169,6 +169,7 @@ function main() {
 //Assigns city name to what the user input
 function assignSearchName() {
     cityName = $("#cityInput").val()
+    $("#cityInput").val("")
     return cityName
 }
 //populates teh arras from local storage and what the user submitted
@@ -281,6 +282,7 @@ function onButtonClick() {
     for (i = 0; i < localStorage.length; i++)
         $("#citySubmit" + i).click(function (buttonArr) {
             cityName = buttonArr.currentTarget.outerText
+            $("#cityInput").val("")
             getWeather()
         });
 }
