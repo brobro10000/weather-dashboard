@@ -133,6 +133,14 @@ img {
     background-image: url(../images/partly-cloudy-day.jpg);
     border-radius: 10px;
 }
+#searchContainer {
+    border: var(--secondary-text);
+    border-style: dotted;
+    border-width: 5px;
+    border-left:none;
+    border-right: none;
+    border-bottom: none;
+}
 .clicked {
     background-color: var(--primary-background);
     margin: 5px;
@@ -249,5 +257,10 @@ img {
     }
     .cardText {
         font-size: medium;
+    }
+  }
+  @media screen and (max-width: 300px) {
+    h1,h3,h4 {
+        font-size:small;
     }
   }

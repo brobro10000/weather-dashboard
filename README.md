@@ -43,7 +43,7 @@ This program allows you to see the weather in a city chosen by the user. It will
 ![UVIndex](assets/images/uviSS.PNG)
 
 
-- It also accounts for night weather, but only for the current weather, due the the openweathermap API. 
+- It also accounts for night weather, but only for the current weather, due the limitations of the openweathermap API. 
 
 ![localStorage3](assets/images/nightSS.PNG)
 
