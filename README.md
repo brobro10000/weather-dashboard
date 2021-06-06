@@ -23,6 +23,11 @@ This program allows you to see the weather in a city chosen by the user. It will
 ![Aside2](assets/images/Aside2SS.PNG)
 
 
+- By default, the background is set to neutral but a dynamic background toggle is there for the user. 
+
+![DefaultBackground](assets/images/backgroundSS.PNG)
+
+
 - If there is no search history, a light blue background appears and the search button and user input bar are visible on the left. 
 
 ![AsideDefault](assets/images/AsideDefaultSS.PNG)
@@ -33,7 +38,7 @@ This program allows you to see the weather in a city chosen by the user. It will
 ![CurrentWeather](assets/images/currentWeatherSS.PNG)
 
 
-- It also displays the 5 day forcast as well as well as a dynamic background based on the icon of the forecasted weather. 
+- It also displays the 5 day forcast as well as well as a dynamic background based on the icon of the forecasted weather which can also be removed with the toggle. 
 
 ![FiveDay](assets/images/fiveDaySS.PNG)
 
