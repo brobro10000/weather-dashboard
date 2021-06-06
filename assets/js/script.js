@@ -9,6 +9,7 @@ var flag = 0;
 var saveFlag = 0;
 var errorFlag = 0;
 var j = 0
+var dynamicFlag = 1
 //converts date to US standard with strings to match MVP
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
@@ -37,7 +38,7 @@ iconCodeArr = [
 //creates the HEADER and text within it
 function header() {
     $("<header>").attr({ "id": "headerContainer" }).appendTo(document.body)
-    return $("<h1>").text("Weather Dashboard").attr({ "class": "weatherHeader text-center" }).appendTo("#headerContainer")
+    $("<h1>").text("Weather Dashboard").attr({ "class": "weatherHeader text-center" }).appendTo("#headerContainer")
 }
 //END HEADER
 
@@ -57,13 +58,13 @@ function searchHistory() {
 //creates the search history dynamically
 function addSearch(i) {
     $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
-    onButtonClick()
+    //onButtonClick()
 }
 //END ASIDE
 
 //START CENTER SECTION
 //Creates first instance of current weather, if flag 1 updates the data 
-function dailyContents(cityName, date, icon, temp, wind, humidity, UV, iconCode) {
+function dailyContents(cityName, date, icon, temp, wind, humidity, UV) {
     if (flag == 1) {
         updateDaily(cityName, date, icon, temp, wind, humidity, UV)
     }
@@ -91,15 +92,29 @@ function updateDaily(cityName, date, icon, temp, wind, humidity, UV) {
 }
 //Dynamically change background based on current weather
 function updateBodyBackground(iconCode, iconCodeArr) {
+    if(dynamicFlag == 1)
+    {
+        for (var i = 0; i < iconCodeArr.length; i++) 
+            $("#background").removeClass(iconCodeArr[i].class)
+    }
+    else if(dynamicFlag == 0){
     for (var i = 0; i < iconCodeArr.length; i++) {
         $("#background").removeClass(iconCodeArr[i].class)
         if (iconCodeArr[i].code == iconCode) {
             $("#background").addClass(iconCodeArr[i].class)
         }
     }
+    }
 }
 //Dynamically change card background based on current weather
 function updateCardBackground(iconCode, iconCodeArr) {
+    if(dynamicFlag == 1)
+    {
+        j++
+        for (var i = 0; i < iconCodeArr.length; i++) 
+            $("#cardContainer"+j).removeClass(iconCodeArr[i].class)
+    } else if(dynamicFlag == 0)
+    {
     j++
     for (var i = 0; i < iconCodeArr.length; i++) {
         $("#cardContainer" + j).removeClass(iconCodeArr[i].class)
@@ -108,6 +123,7 @@ function updateCardBackground(iconCode, iconCodeArr) {
 
         }
     }
+}
 }
 //Parameters for UV to add the class to change background color
 //parameters determined by EPA standards for limits
@@ -165,6 +181,7 @@ function main() {
     citySearch()
     searchHistory()
     loadData(cityNameArr)
+    $("<button>").text("Dynamic Background Toggle").attr({ "id": "dynamic", "type": "button", "class": "col clicked" }).appendTo(document.body)
 }
 //Assigns city name to what the user input
 function assignSearchName() {
@@ -231,7 +248,7 @@ function loadData(cityNameArr) {
         cityNameArr[i] = localStorage.getItem("savedCities" + i)
         $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit" + i, "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
     }
-    onButtonClick()
+    //onButtonClick()
 }
 //on page reload, load last saved item in search history
 function loadPrevious(buttonArr) {
@@ -273,6 +290,17 @@ $("#citySubmit").on("click", function () {
         savingValidData(cityName)
     }
 });
+$("#dynamic").on("click", function(){
+    if(dynamicFlag == 1)
+    {
+        dynamicFlag = 0
+        getWeather()
+    } else if(dynamicFlag == 0)
+    {
+        dynamicFlag = 1
+        getWeather()
+    }
+}) 
 //Reads button clicks from history and loads data
 function onButtonClick() {
     saveFlag = 1;
