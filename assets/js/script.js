@@ -8,8 +8,8 @@ var buttonArr = []
 var flag = 0;
 var saveFlag = 0;
 var errorFlag = 0;
-var j = 0
-var dynamicFlag = 1
+var j = 0;
+var dynamicFlag = 1;
 //converts date to US standard with strings to match MVP
 var currentDate = new Date().toLocaleDateString("en-US")
 currentDate = " (" + currentDate + ") "
@@ -189,7 +189,7 @@ function assignSearchName() {
     $("#cityInput").val("")
     return cityName
 }
-//populates teh arras from local storage and what the user submitted
+//populates the arrays from local storage and what the user submitted
 function populateButtonArr() {
     for (var i = 0; i < localStorage.length; i++) {
         cityNameArr[i] = localStorage.getItem("savedCities" + i)
