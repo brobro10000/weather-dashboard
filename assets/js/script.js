@@ -57,8 +57,7 @@ function searchHistory() {
 }
 //creates the search history dynamically
 function addSearch(i) {
-    $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
-    //onButtonClick()
+    $("<button>").text(cityName).attr({ "id": "citySubmit" + (i), "type": "button", "class": "col clicked cityBtn" }).appendTo("#searchContainer")
 }
 //END ASIDE
 
@@ -246,9 +245,8 @@ function saveData(cityName, i) {
 function loadData(cityNameArr) {
     for (var i = 0; i < localStorage.length; i++) {
         cityNameArr[i] = localStorage.getItem("savedCities" + i)
-        $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit" + i, "type": "button", "class": "col clicked" }).appendTo("#searchContainer")
+        $("<button>").text(cityNameArr[i]).attr({ "id": "citySubmit" + i, "type": "button", "class": "col clicked cityBtn" }).appendTo("#searchContainer")
     }
-    //onButtonClick()
 }
 //on page reload, load last saved item in search history
 function loadPrevious(buttonArr) {
@@ -262,7 +260,6 @@ function savingValidData(cityName) {
     addSearch(localStorage.length)
     saveData(cityName, localStorage.length)
     populateButtonArr()
-    onButtonClick()
     saveFlag = 0
 }
 //runs the program
@@ -304,10 +301,9 @@ $("#dynamic").on("click", function(){
 //Reads button clicks from history and loads data
 function onButtonClick() {
     saveFlag = 1;
-    for (i = 0; i < localStorage.length; i++)
-        $("#citySubmit" + i).click(function (buttonArr) {
-            cityName = buttonArr.currentTarget.outerText
-            $("#cityInput").val("")
-            getWeather()
-        });
+    $("#searchContainer").on("click",".cityBtn",function(){
+        cityName = $(this).text()
+        $("#cityInput").val("")
+        getWeather()
+    })
 }
